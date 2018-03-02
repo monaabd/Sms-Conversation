@@ -116,7 +116,7 @@ class App extends Component {
                       (e) => this.setState({ text: e.target.value })
                     }
                     back={
-                      () => this.setState({ customer })
+                      () => this.setState({conversation:[]})
                     }
                     conversation={conversation}
                     // conversation

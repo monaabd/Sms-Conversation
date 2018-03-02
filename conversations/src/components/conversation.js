@@ -11,7 +11,7 @@ export const Conversation = (props) => (
   <div>
 
     {/* <p> 'Number: '{props.customer.msisdn}</p> */}
-    <button onClick={props.back}>back</button>
+    
     
     {props.conversation.map((conv) => {
       const { reserv, out } = conv;
@@ -78,7 +78,7 @@ export const Conversation = (props) => (
         <button>Send</button>
       </form>
     </p>
-
+    <button onClick={props.back}>back</button>
   </div>
 );
 
