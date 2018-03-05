@@ -4,18 +4,28 @@ import Paper from 'material-ui/Paper';
 // import Avatar from 'material-ui/Avatar';
 // import PropTypes from 'prop-types';
 import '../css/conversationStyle.css';
-import { App } from '../App';
+
 
 export const Conversation = (props) => (
 
+
   <div>
 
-    
-    
+    <div>
+      <form>
+        <h3>
+            Pinchos - Customer : {props.customer.msisdn} <br />
+            Location  {props.customer.locationId}
+        </h3>
+        <select className="location">
+          <option value="Gotaberg">Gothaberg</option>
+          <option value=""></option>
+        </select>
+      </form>
+    </div>
 
     {props.conversation.map((conv) => {
-      const { reserv, out } = conv;
-
+      const { objectId, reserv, out } = conv;
       // same things as above
       // const reserv = conv.reserv;
       // const out = conv.out;
@@ -30,6 +40,8 @@ export const Conversation = (props) => (
       } else {
         type = 'unknown';
       }
+
+
       // same thing as above
       // const type = reserv ? 'reserv' : out ? 'out' : conv.in ? 'in' : 'unknown';
       // type inja pain be onvane class name dadim ke be onvane id bara khodemon bashe
@@ -42,8 +54,10 @@ export const Conversation = (props) => (
       // }
 
       return (
-
-        <Paper className={`${type}-wrapper wrapper`} style={this.style} zDepth={3}>
+         
+        <Paper className={`${type}-wrapper wrapper speech-bubble`} style={this.style} zDepth={3}>
+           
+          
           {/* {conv.out && <Avatar src="logo.jpg" />} */}
           {/* vaghti dota classname mikhay  bedi behtare oni ke varible o eyne bala ba $ benevisi */}
 
@@ -59,27 +73,36 @@ export const Conversation = (props) => (
             updatedAt:  {conv.updatedAt},
             type: {type},
             reserve:  {conv.reserve}, */}
-            <a href="" hover="color: red;"> Object Id: {conv.objectId},</a>
+            <br />
+            <a href={`http://booking.pinchos.se/#${conv.objectId}`} hover=""> BookingId : {conv.objectId}</a>
+            {/* bara ezafe kardan in varib be string e href az ` $`estefade kardim */}
             {/* to:  {conv.to}, */}
             {/* 'seatingDate '{conv.seatingDate.iso},  */}
 
 
             {/* {conv.in && <Avatar src="logo.jpg" />} */}
           </p>
-
-        </Paper>
-
+          
+        </Paper>  
       );
     })}
-    <p>
-      <form onSubmit={props.submit}>
-        
-        <input type="text" value={props.text} onChange={props.change} />
-        <button>Send</button>
-      </form>
-    </p>
-    <button onClick={props.back} >Back</button>
+    {/* {JSON.stringify(props.conversation)} */}
+    <Paper className="out-wrapper" style={this.style} zDepth={3}>
+      <p>
+        <form onSubmit={props.submit}>
+          <input
+            type="text"
+            value={props.text}
+            onChange={props.change}
+          /> 
+          <button>Send</button>
+            <div style={{fontSize: 10}}> Rutan är begränsad till 140 bokstäver</div>
+        </form>
+        <button onClick={props.back} >Back</button>
+      </p>
+    </Paper>
   </div>
+
 );
 
 export default Conversation;

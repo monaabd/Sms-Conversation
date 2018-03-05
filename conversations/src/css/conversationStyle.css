@@ -1,7 +1,7 @@
 
 .wrapper {
   display: flex;
-  align-items: center;
+  align-items: center ;
   margin: 0.2em 0;
 }
 
@@ -12,7 +12,11 @@
 }
 
 .out-wrapper {
-  justify-content: start;
+  justify-content: center; 
+}
+.out-wrapper input {
+  left: 50px;
+    width: calc(100% - 100px);
 }
 
 .in-wrapper {
@@ -37,5 +41,26 @@ p.reserv {
 
 
 
+.speech-bubble {
+	position: relative;
+	background: #cecece;
+	border-radius: .4em;
+}
 
+.speech-bubble:after {
+  /* text-align: right, */
+	content: '';
+	position: absolute;
+	left: 0;
+  top: 50%;
+	width: 0;
+  height: 0;
+  /* inja ye moraba ke segosh in bordera segosh daresh hastan ke age rang bedi borderhayr pain mibini */
+	border: 26px solid transparent;
+	border-right-color: #cbd1d1;
+	border-left:0;
+	border-bottom:0;
+	margin-top: -13px;
+	margin-left: -26px;
+}
 

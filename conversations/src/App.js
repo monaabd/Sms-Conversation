@@ -7,7 +7,7 @@ import './logo.jpg';
 import './pinchos1.jpg';
 import './App.css';
 import List from './components/List';
-import unresponded from './dataMap/unresponded.js';
+import unresponded from './dataMap/unresponded';
 import { Conversation } from './components/conversation';
 import './css/conversationStyle.css';
 
@@ -31,7 +31,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: [],
       conversation: [],
       customer: null,
       text: '',
@@ -39,7 +38,15 @@ class App extends Component {
     this.chooseCustomer = this.chooseCustomer.bind(this);
     this.socket = openSocket('localhost:8000');
     // this.addText = this.addText.bind(this);
+    this.addText = this.addText.bind(this);
   }
+
+  // in component vaghti ke safe download mishe etefagh miofte (socket on baz mimone baraye
+  // gereftane evente add text az aval ke safe ma baze (rabete servr o cline onee hamash ba in))
+  componentWillMount() {
+    this.socket.on('addText', (text) => this.addText(text));
+  }
+
 
   // shouldComponentUpdate = (nextProps) => (
   // this.props.text !== nextProps.text
@@ -70,13 +77,21 @@ class App extends Component {
   // });
   // }
 
-
+  addText(text) {
+    // console.log('addedText');
+    this.setState({
+      conversation: [...this.state.conversation, { text }],
+      text: '',
+    });
+    this.socket.emit('emitText', text);
+  }
   chooseCustomer(customer) {
     const conversation = conversations.filter((conv) => customer.msisdn === conv.msisdn);
     this.setState({
       customer,
       conversation,
     });
+    console.log(conversation, 'conversation');
   }
 
 
@@ -92,18 +107,18 @@ class App extends Component {
             <h1 className="App-title"> Pincho Chat Page</h1>
           </header>
 
-          <Paper style={style} zDepth={5}> {/* <List values={this.state.list} /> */}
+          <Paper style={style} zDepth={5}> {/* <unresponded={this.state.list} /> */}
             <div className="container" >
               <p className="App-intro">
                 {/* To get started, edit <code>src/App.js</code> and save to reload. */}
               </p>
               {/* in line pain mige age conversain baranar 0 bood bad(&&) in func ya harchi bade och och run kon */}
               {conversation.length === 0 &&
-                <Paper style={style} zDepth={5}> {/* <List values={this.state.list} /> */}
+                <Paper style={style} zDepth={5}> {/* <List unresponded={this.state.list} /> */}
                   <div className="list">
                     <table>
                       <tbody>
-                        <List values={unresponded} viewCustomer={this.chooseCustomer} />
+                        <List unresponded={unresponded} viewCustomer={this.chooseCustomer} />
                       </tbody>
                     </table>
                   </div>
@@ -112,24 +127,28 @@ class App extends Component {
 
               {conversation.length > 0 &&
                 <div className="smsContainer">
+
                   <Conversation
                     submit={(e) => {
                       // add text
                       e.preventDefault();
+                      this.addText(text);
                       // to cathch that emit on client side and add message to our arrage
                       // what we received in server vi emit to all clients
-                      const addText = (text) => {
-                        this.setState({
-                          conversation: [...conversation, { text }],
-                          text: '',
-                        });
-                      };
+                      // const addText = (txt) => {
+                      //   console.log('addedText');
+                      //   this.setState({
+                      //     conversation: [...conversation, { txt }],
+                      //     text: '',
+                      //   });
+                      // };
 
-                      addText(text);
-                      this.socket.emit('emitText', text);
+                      // addText(text);
 
-                      this.socket.emit('addText', (text) => addText(text));
+
+                      // this.socket.on('addText', addText);
                     }} // onSubmit
+
 
                     change={
                       // emiting info we received from client (text) and send to server
@@ -141,9 +160,9 @@ class App extends Component {
                     }
                     conversation={conversation}
                     // conversation
-
+                    // customer={this.state.customer} or
                     customer={customer}
-                  // text={text}
+                   text={text}
                   />
                 </div>
               }
