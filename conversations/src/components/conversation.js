@@ -10,9 +10,9 @@ export const Conversation = (props) => (
 
   <div>
 
-    {/* <p> 'Number: '{props.customer.msisdn}</p> */}
     
     
+
     {props.conversation.map((conv) => {
       const { reserv, out } = conv;
 
@@ -78,7 +78,7 @@ export const Conversation = (props) => (
         <button>Send</button>
       </form>
     </p>
-    <button onClick={props.back}>back</button>
+    <button onClick={props.back} >Back</button>
   </div>
 );
 
