@@ -24,12 +24,11 @@ io.on('connection', (client) => {
   // when the client emits 'new message'this listens and executs
 
   client.on('emitText', (text) => {
-    text,
     console.log(text, 'emitted Text');
 
     // we tell the client to execute 'new message'
 
-    client.emit('addText', text);
+    client.broadcast.emit('addText', text);
   });
 });
 

@@ -8,7 +8,7 @@ import '../css/conversationStyle.css';
 
 export const Conversation = (props) => (
 
-
+  
   <div>
 
     <div>
@@ -29,8 +29,9 @@ export const Conversation = (props) => (
       // same things as above
       // const reserv = conv.reserv;
       // const out = conv.out;
-
+     
       let type;
+      
       if (reserv) {
         type = 'reserv';
       } else if (out) {
@@ -40,7 +41,7 @@ export const Conversation = (props) => (
       } else {
         type = 'unknown';
       }
-
+      //console.log(`${type }type`);
 
       // same thing as above
       // const type = reserv ? 'reserv' : out ? 'out' : conv.in ? 'in' : 'unknown';
@@ -54,10 +55,10 @@ export const Conversation = (props) => (
       // }
 
       return (
-         
+
         <Paper className={`${type}-wrapper wrapper speech-bubble`} style={this.style} zDepth={3}>
-           
-          
+
+
           {/* {conv.out && <Avatar src="logo.jpg" />} */}
           {/* vaghti dota classname mikhay  bedi behtare oni ke varible o eyne bala ba $ benevisi */}
 
@@ -82,8 +83,8 @@ export const Conversation = (props) => (
 
             {/* {conv.in && <Avatar src="logo.jpg" />} */}
           </p>
-          
-        </Paper>  
+
+        </Paper>
       );
     })}
     {/* {JSON.stringify(props.conversation)} */}
@@ -94,9 +95,9 @@ export const Conversation = (props) => (
             type="text"
             value={props.text}
             onChange={props.change}
-          /> 
+          />
           <button>Send</button>
-            <div style={{fontSize: 10}}> Rutan är begränsad till 140 bokstäver</div>
+          <div style={{ fontSize: 10 }}> Rutan är begränsad till 140 bokstäver</div>
         </form>
         <button onClick={props.back} >Back</button>
       </p>

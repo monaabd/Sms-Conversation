@@ -2,13 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
-
-
-
 export const List = (props) => (
   <tr>
-    {props.values.map((value) => (
+    {props.unresponded.map((value) => (
       <tr>
         <td key={value.msisdn}><ListItem value={value} /></td>
         <td>
@@ -20,7 +16,7 @@ export const List = (props) => (
 );
 
 List.propTypes = {
-  values: PropTypes.array.isRequired,
+  unresponded: PropTypes.array.isRequired,
 };
 
 

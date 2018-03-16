@@ -96,6 +96,7 @@ class App extends Component {
 
 
   render() {
+   // console.log(`${type }type`);
     const {
       text, conversation, customer,
     } = this.state;
